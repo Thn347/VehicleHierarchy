@@ -19,14 +19,7 @@ def main():
     original_list = [2020, 2021]
     am = AutoModel("F150", True, original_list)
 
-    print(am.get_years)
-
-    original_list.clear()
-
-    original_list.append(2022)
-
-    print(am.get_years)
-    # pass
+    print(am)
 
 if __name__ == "__main__":
     main()

@@ -22,5 +22,10 @@ class AutoModel:
         return self._in_production
     
     @property
-    def get_years(self) -> list:
+    def get_years(self) -> list[int]:
         return list(self._years) # return a copy
+    
+    # F150 in production = True, release year: 2020
+    def __str__(self) -> str:
+        return f"{self._name} in production = {self._in_production}, release year: {self._years[0]}"
+        
