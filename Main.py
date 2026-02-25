@@ -6,20 +6,14 @@ Author: Thuan Nguyen
 # from <file> import <class>
 from manufacturer import Manufacturer
 from auto_model import AutoModel
+from sedan import Sedan
 
 def main():
-    # print("Hello World")
-    # Manufacturer.print_me()
-    # m = Manufacturer("Ford", "USA")
-    # m.print_me()
-    # print(m._name)   #DO NOT access private variable
-    # print(m.get_name) 
-    # print(m.get_country)
-    # print(m)
-    original_list = [2020, 2021]
-    am = AutoModel("F150", True, original_list)
-
-    print(am)
+    s = Sedan(
+        Manufacturer("Honda", "Japan"),
+        AutoModel("Civic", False, [1996, 1997, 1998]),
+        28.0
+    )
 
 if __name__ == "__main__":
     main()
