@@ -8,7 +8,6 @@ class Vehicle(ABC):
     """
     Abstract base class (ABC) for all vehicles
     """
-
     # constructor
     def __init__(self,
                  manufacturer: Manufacturer,
@@ -31,7 +30,11 @@ class Vehicle(ABC):
         return self._mpg
     
     # ----- concrete methods -----
-    def how_far_with(self, 
-                     num_of_gallons: int) -> float:
+    def how_far_with(self, num_of_gallons: int) -> float:
         return self._mpg * num_of_gallons
     
+    # ----- abstract methods -----
+    @abstractmethod
+    def number_of_wheels(self) -> int:
+        ...
+
