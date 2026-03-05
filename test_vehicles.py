@@ -8,7 +8,7 @@ import pytest
 from manufacturer import Manufacturer
 from auto_model import AutoModel
 from vehicle import Vehicle
-# from sedan import Sedan
+from sedan import Sedan
 # from truck import Truck
 # from garage import Garage
 
@@ -97,3 +97,50 @@ class TestVehicleAbstract:
                 AutoModel("Zhongli", True, [2025]),
                 30.0
             )
+
+
+# ============================================================
+#  Sedan tests
+# ============================================================
+class TestM3Limited:
+    @pytest.fixture
+    def m3(self):
+        return Sedan(
+            Manufacturer("BMW", "Germany"),
+            AutoModel("M3 Limited", False, [2015, 2016, 2017, 2018]),
+            30.0,
+        )
+    
+    def test_number_of_wheels(self, m3):
+        assert m3.number_of_wheels() == 4
+
+    def test_release_year(self, m3):
+        assert m3.release_year == 2015
+
+    def test_mpg(self, m3):
+        assert m3.mpg == pytest.approx(30.0)
+
+    def test_manufacturer(self, m3):
+        assert m3.manufacturer.name == "BMW"
+        assert m3.manufacturer.country == "Germany"
+
+    def test_model_name(self, m3):
+        assert m3.model.name == "M3 Limited"
+
+    def test_how_far_with(self, m3):
+        assert m3.how_far_with(10) == pytest.approx(300.0)
+        assert m3.how_far_with(5) == pytest.approx(150.0)
+
+    def test_str_contains_required_parts(self, m3):
+        s = str(m3)
+        assert "(BMW, Germany)" in s
+        assert "M3 Limited" in s
+        assert "30.00" in s
+
+    def test_str_does_not_contain_dually(self, m3):
+        s = str(m3)
+        assert "dually" not in s.lower()
+
+    def test_is_instance_of_vehicle(self, m3):
+        assert isinstance(m3, Vehicle)
+ 
