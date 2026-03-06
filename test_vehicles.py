@@ -207,3 +207,60 @@ class TestTruck:
         assert isinstance(f150, Vehicle)
 
 
+# ============================================================
+#  Comparable / ordering tests for Vehicle
+# ============================================================
+class TestVehicleComparison:
+    @pytest.fixture
+    def sedan_1996(self):
+        return Sedan(
+            Manufacturer("Honda", "Japan"),
+            AutoModel("Civic", False, [1996, 1997, 1998]),
+            28.0,
+        )
+    
+    @pytest.fixture
+    def truck_1996(self):
+        return Truck(
+            Manufacturer("Chevy", "USA"),
+            AutoModel("Silverado", False, [1996, 1997, 1998, 1999, 1920]),
+            18.0,
+        )
+    
+    @pytest.fixture
+    def sedan_2015(self):
+        return Sedan(
+            Manufacturer("BMW", "Germany"),
+            AutoModel("M3 Limited", False, [2015, 2016, 2017, 2018]),
+            30.0,
+        )
+
+    @pytest.fixture
+    def truck_2020(self):
+        return Truck(
+            Manufacturer("Ford", "USA"),
+            AutoModel("F150", True, [2020, 2021, 2022]),
+            20.0,
+        )
+
+    def test_lt(self, sedan_1996, sedan_2015):
+        assert sedan_1996 < sedan_2015
+
+    def test_not_lt_when_greater(self, sedan_2015, sedan_1996):
+        assert not (sedan_2015 < sedan_1996)
+
+    def test_eq_same_year(self, sedan_1996, truck_1996):
+        assert sedan_1996 == truck_1996
+
+    def test_not_eq_different_year(self, sedan_1996, sedan_2015):
+        assert sedan_1996 != sedan_2015
+
+    def test_gt(self, truck_2020, sedan_2015):
+        assert truck_2020 > sedan_2015
+
+    def test_sorted_order(self, sedan_1996, sedan_2015, truck_2020):
+        vehicles = [truck_2020, sedan_1996, sedan_2015]
+        result = sorted(vehicles)
+        assert result[0].release_year == 1996
+        assert result[1].release_year == 2015
+        assert result[2].release_year == 2020
